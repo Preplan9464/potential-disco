@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Soles</title>
+<meta property="og:title" content="Soles">
+<meta property="og:description" content="A multiplayer roleplay game set in Lock City, a walled city on a 12 km island. Stay within the walls.">
+<link rel="icon" type="image/png" href="assets/badge-08.png">
+<meta name="description" content="Soles is a multiplayer roleplay game set in and around Lock City, a walled city on a 12 km island.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=Gelasio:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the page walks outward from the gate. City, work, wilderness, swamp, crime, off-hours, entry.
+   Section heads are built like the game's enamel signs. Concrete wall bands separate each stretch. */
+:root{
+  color-scheme:dark;
+  --wall:#17181b; --wall-2:#202226; --line:#383a40;
+  --bone:#f1eee6; --mute:#b1aea5;
+  --crimson:#b3121f; --crimson-text:#ef5360;
+  --cream:#fdf2b0; --hazard:#f0c020;
+  --swamp:#07110f; --swamp-2:#0d1c19; --mint:#2bffc6; --mint-dim:#9fd9c8;
+  --display:"Anton","Impact","Arial Narrow",sans-serif;
+  --sign:"Gelasio",Georgia,"Times New Roman",serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+  --gl:max(clamp(16px,4vw,48px),env(safe-area-inset-left,0px));
+  --gr:max(clamp(16px,4vw,48px),env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--wall);color:var(--bone);font:400 17px/1.6 var(--body);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+h1,h2,h3,p,ul,ol,figure,dl,dd{margin:0;padding:0}
+ul,ol{list-style:none}
+.in{max-width:1240px;margin-inline:auto;padding-left:var(--gl);padding-right:var(--gr)}
+section{padding-block:clamp(64px,9vw,120px)}
+.lede{max-width:62ch;color:var(--mute);font-size:1.12rem}
+.mono{font-family:var(--mono);font-size:.8rem;letter-spacing:.04em}
+
+/* hero */
+.hero{position:relative;background:#0c0c0e;isolation:isolate}
+.hero>img{width:100%;height:clamp(560px,56vw,860px);object-fit:cover;object-position:60% 20%}
+.hero::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(12,12,14,.72) 0,rgba(12,12,14,0) 20%,rgba(12,12,14,0) 48%,rgba(12,12,14,.94) 88%,#17181b 100%)}
+.top{position:absolute;z-index:2;inset:0 0 auto}
+.top .in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:20px}
+.top img{width:132px;height:auto}
+.top ul{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 22px;font:500 .78rem var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.top a{text-decoration:none}.top a:hover{color:var(--cream)}
+.pitch{position:absolute;z-index:2;inset:auto 0 0}
+.pitch .in{padding-bottom:clamp(24px,4vw,52px)}
+h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:uppercase;letter-spacing:.005em;text-wrap:balance;animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.pitch p{max-width:58ch;margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.25rem)}
+.spec{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:18px;color:var(--cream)}
+@keyframes rise{from{transform:translateY(22px)}to{transform:none}}
+
+/* concrete wall band */
+.wallband{height:64px;background:#2a2b2e url(assets/concrete.jpg) center/320px;background-blend-mode:multiply;border-block:5px solid #0d0d0f;display:flex;align-items:center;overflow:hidden}
+.wallband span{display:block;width:100%;text-align:center;white-space:nowrap;font:500 .74rem var(--mono);letter-spacing:.24em;text-transform:uppercase;color:#d3d0c8}
+
+/* sign-style section head */
+.head{display:grid;gap:18px;margin-bottom:clamp(32px,5vw,56px)}
+.head h2{font:700 clamp(2rem,5vw,3.7rem)/1.08 var(--sign);text-transform:uppercase;letter-spacing:.06em;text-wrap:balance}
+.rule{display:flex;align-items:center;gap:10px;width:min(320px,70%);color:var(--crimson)}
+.rule::before,.rule::after{content:"";height:3px;flex:1;background:currentColor}
+.rule i{width:11px;height:11px;background:currentColor;transform:rotate(45deg)}
+
+/* city */
+.sky{position:relative;border:3px solid var(--crimson);outline:1px solid var(--crimson);outline-offset:4px;margin:6px 6px 0;background:#000}
+.sky figure{position:relative;aspect-ratio:7/3}
+.sky img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s}
+.sky img.off{opacity:0}
+.skybar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;margin-top:24px}
+.clock{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.clock b{font:400 2.5rem/1 var(--display);letter-spacing:.03em;font-variant-numeric:tabular-nums}
+.clock span{color:var(--mute)}
+.toggle{display:flex;border:1px solid var(--line)}
+.toggle button{appearance:none;border:0;background:none;color:var(--mute);padding:9px 20px;font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.toggle button[aria-pressed=true]{background:var(--crimson);color:#fff}
+.districts{display:flex;flex-wrap:wrap;gap:8px;margin-block:44px 56px}
+.districts li{padding:5px 12px;background:#1d5a3c;border:1px solid #6da98b;border-radius:3px;color:#fff;font:600 .86rem var(--body)}
+.signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 28px}
+.signs img{width:100%;aspect-ratio:3/2;object-fit:contain;background:#0e0e10}
+.signs h3{margin-top:14px;font:600 1.05rem var(--body)}
+.signs p{color:var(--mute);font-size:.96rem;margin-top:3px}
+
+/* ledger */
+.work{background:var(--wall-2)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,84px);align-items:start}
+.split>*{min-width:0}
+.assign{margin-top:24px;padding:16px 18px;border:1px solid var(--line);font:400 .86rem/1.55 var(--mono);color:var(--cream)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+caption{text-align:left;padding-bottom:10px;font:500 .76rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+th,td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+tbody th{font-weight:600}
+td.n,th.n{text-align:right;padding-right:0;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table+table{margin-top:38px}
+
+/* wilderness */
+.gate{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(28px,5vw,64px);align-items:end;margin-bottom:54px}
+.gate>*{min-width:0}
+.lands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 28px}
+.lands h3{padding-bottom:8px;margin-bottom:10px;border-bottom:3px solid var(--bone);font:400 1.65rem/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.lands li{padding-block:8px;border-bottom:1px solid var(--line);font-size:.93rem;color:var(--mute);line-height:1.45}
+.lands b{display:block;color:var(--bone);font-weight:600;font-size:1rem}
+
+/* blackwater */
+.swamp{background:radial-gradient(90% 60% at 70% 0,#123029 0,transparent 70%),var(--swamp);color:#dff8f0}
+.swamp .head h2{color:var(--mint)}.swamp .rule{color:var(--mint)}
+.swamp .lede{color:var(--mint-dim)}
+.warn{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:22px;font:500 .78rem var(--mono);letter-spacing:.1em;color:var(--mint)}
+.warn li{border:1px solid currentColor;padding:3px 9px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:48px}
+.cards li{min-width:0}
+.cards img{width:100%;aspect-ratio:12/17;object-fit:cover;transition:transform .2s}
+.cards li:hover img{transform:translateY(-6px) rotate(-1deg)}
+.cards p{margin-top:9px;font-size:.92rem;line-height:1.4;color:var(--mint-dim)}
+
+/* crime */
+.badges{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:30px}
+.badges img{width:100%;aspect-ratio:1;opacity:.82;transition:opacity .15s}
+.badges img:hover{opacity:1}
+.ops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px;margin-top:56px}
+.ops li{padding-block:18px;border-top:1px solid var(--line)}
+.ops h3{font:600 1.08rem var(--body)}
+.ops p{margin-top:4px;color:var(--mute);font-size:.96rem}
+.ops .k{display:block;margin-top:8px;color:var(--crimson-text)}
+.body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center;margin-top:64px;padding-top:42px;border-top:3px solid var(--crimson)}
+.body>*{min-width:0}
+.body h3{font:400 clamp(2rem,4vw,3rem)/1.08 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.wounds{font:400 .83rem/1.9 var(--mono);color:var(--mute)}
+.wounds b{color:var(--crimson-text);font-weight:500}
+
+/* off hours */
+.off{background:var(--wall-2)}
+.posters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:56px}
+.posters img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.leis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 36px}
+.leis h3{font:600 1.08rem var(--body)}
+.leis p{color:var(--mute);font-size:.96rem;margin-top:3px}
+.tip{margin-top:52px;font:400 clamp(1.4rem,3vw,2.2rem)/1.15 var(--display);letter-spacing:.03em;text-transform:uppercase;color:var(--cream);text-wrap:balance}
+.fleet{margin-top:64px}
+
+/* entry */
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px 22px}
+.keys div{display:flex;align-items:center;gap:10px;font-size:.93rem;color:var(--mute)}
+kbd{min-width:32px;padding:2px 7px;border:1px solid #5a5c63;border-bottom-width:3px;border-radius:3px;background:var(--wall-2);color:var(--bone);text-align:center;font:500 .74rem var(--mono)}
+.req{margin-top:24px}
+.req div{display:flex;justify-content:space-between;gap:20px;padding-block:9px;border-bottom:1px solid var(--line)}
+.req dt{color:var(--mute)}.req dd{text-align:right;font-weight:600}
+footer{padding-block:38px calc(38px + env(safe-area-inset-bottom,0px));background:#0d0d0f;color:var(--mute);font-size:.88rem}
+footer .in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+footer img{width:96px;height:auto}
+
+@media (max-width:980px){
+  .signs,.ops,.leis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lands,.cards,.posters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split,.gate,.body{grid-template-columns:minmax(0,1fr)}
+  .badges{grid-template-columns:repeat(8,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .top ul{display:none}
+  .hero>img{height:520px;object-position:58% 0}
+  .pitch{position:relative;margin-top:-120px}
+  .sky figure{aspect-ratio:3/2}
+  .signs,.ops,.leis,.lands{grid-template-columns:minmax(0,1fr)}
+  .cards{gap:14px}
+  .badges{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .wallband span{letter-spacing:.14em;font-size:.66rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img src="assets/poster.jpg" alt="A Lock City Guard in a crimson cap, pistol in hand, pointing at the viewer in front of a concrete wall under a red sky" width="1672" height="941">
+  <nav class="top" aria-label="Sections">
+    <div class="in">
+      <img src="assets/logo.png" alt="Soles" width="640" height="169">
+      <ul>
+        <li><a href="#city">The city</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#outside">Outside</a></li>
+        <li><a href="#blackwater">Blackwater</a></li>
+        <li><a href="#crime">Crime</a></li>
+        <li><a href="#play">Play</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="pitch">
+    <div class="in">
+      <h1>Stay within the walls</h1>
+      <p>Soles is a multiplayer roleplay game set in Lock City, a walled city on a 12 km island. The government assigns your job. What you do after your shift is up to you.</p>
+      <ul class="spec mono">
+        <li>12 players per session</li>
+        <li>One persistent world</li>
+        <li>Proximity voice</li>
+        <li>Windows</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="city">
+  <div class="in">
+    <div class="head">
+      <h2>Lock City</h2>
+      <div class="rule"><i></i></div>
+      <p class="lede">Gothic spires, palm-lined avenues and a ring of burnt-out blocks, all held inside one concrete wall with three gates. The sky over it is real: the clock, sun, moon and stars follow Augusta, Maine, right now.</p>
+    </div>
+
+    <div class="sky">
+      <figure>
+        <img id="day" src="assets/city-day.jpg" alt="Lock City by day: a wide street, palm trees, brick blocks and the twin spires of the Chancery" width="1260" height="540">
+        <img id="night" class="off" src="assets/city-night.jpg" alt="Lock City at night: lit apartment windows under a sky full of stars" width="1260" height="540">
+      </figure>
+    </div>
+    <div class="skybar">
+      <p class="clock"><b id="time">--:--</b><span id="state">Eastern Time in Lock City</span></p>
+      <div class="toggle" role="group" aria-label="Time of day">
+        <button id="btn-day" type="button" aria-pressed="true">Day</button>
+        <button id="btn-night" type="button" aria-pressed="false">Night</button>
+      </div>
+    </div>
+
+    <ul class="districts" aria-label="City districts">
+      <li>Town Centre</li><li>Downtown</li><li>Civic Quarter</li><li>Midtown</li><li>Neon Row</li><li>Old Quarter</li><li>Northside Heights</li><li>The Flats</li><li>Industrial Park</li><li>Docklands</li>
+    </ul>
+
+    <ul class="signs">
+      <li><img src="assets/sign_thechancery.jpg" alt="The Chancery sign" loading="lazy"><h3>The Chancery</h3><p>A gothic cathedral and the seat of government. Its bell tolls twelve at noon on Sundays.</p></li>
+      <li><img src="assets/sign_theredstar.jpg" alt="The Red Star sign" loading="lazy"><h3>The Red Star</h3><p>The only bar in the city, with a jukebox, a pool table and a game of Joker.</p></li>
+      <li><img src="assets/sunsetmotel.jpg" alt="Sunset Motel sign" loading="lazy"><h3>Sunset Motel</h3><p>Your free first room. Your stash lives in the cupboard.</p></li>
+      <li><img src="assets/guardstation.jpg" alt="City Guard Station sign" loading="lazy"><h3>Guard Station</h3><p>Home of the Lock City Guards, who book arrests here before the van to Black Prison.</p></li>
+      <li><img src="assets/trainstation.jpg" alt="Lock City Central Rail Station sign" loading="lazy"><h3>Lock City Central</h3><p>Board the Desert Line here for the run out to Dry Creek.</p></li>
+      <li><img src="assets/cityhardware.jpg" alt="Lock City Hardware sign" loading="lazy"><h3>City Hardware</h3><p>Crowbars, bolt cutters, spray paint and seeds. Nobody asks what they are for.</p></li>
+    </ul>
+  </div>
+</section>
+
+<div class="wallband" aria-hidden="true"><span>Lock City &nbsp;◆&nbsp; Founded 2025 &nbsp;◆&nbsp; North Gate &nbsp;◆&nbsp; East Gate &nbsp;◆&nbsp; South Gate</span></div>
+
+<section id="work" class="work">
+  <div class="in split">
+    <div>
+      <div class="head">
+        <h2>Pay is in Scrap</h2>
+        <div class="rule"><i></i></div>
+      </div>
+      <p class="lede">You do not pick a career in Lock City. Go to a jobs board or open your phone, and the city government hands you one. Skill levels add 15% to your pay each.</p>
+      <p class="assign">“The Government of Lock has assigned you to Garbage collection.”</p>
+    </div>
+    <div>
+      <div class="scroll">
+        <table>
+          <caption>Assigned work</caption>
+          <thead><tr><th scope="col">Job</th><th scope="col">The shift</th><th scope="col" class="n">Scrap</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Garbage</th><td>Six bin stops in the City Sanitation Truck, then back to the depot</td><td class="n">420 / run</td></tr>
+            <tr><th scope="row">Deliveries</th><td>City Delivery Truck, paid by the distance</td><td class="n">250 + 0.3 / m</td></tr>
+            <tr><th scope="row">Fishing</th><td>Mackerel, cod, sea bass and the occasional old boot</td><td class="n">18 + 22 / kg</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll">
+        <table>
+          <caption>Payday, every 5 minutes</caption>
+          <tbody>
+            <tr><th scope="row">Civilian</th><td class="n">100</td></tr>
+            <tr><th scope="row">Faction member</th><td class="n">150 + 125 / turf</td></tr>
+            <tr><th scope="row">Guard on duty</th><td class="n">600</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wallband" aria-hidden="true"><span>Exit toll &nbsp;◆&nbsp; Scrap &nbsp;◆&nbsp; Pay on exit</span></div>
+
+<section id="outside">
+  <div class="in">
+    <div class="gate">
+      <div class="head" style="margin:0">
+        <h2>Beyond the gates</h2>
+        <div class="rule"><i></i></div>
+        <p class="lede">Coming in is free. Leaving costs 50 Scrap. Past the toll, the island runs 12 km across, from harbours and desert to snow, with wolves and deer in the woods between.</p>
+      </div>
+      <img src="assets/exittoll.jpg" alt="Exit Toll sign: Scrap, pay on exit" loading="lazy">
+    </div>
+    <div class="lands">
+      <div><h3>Coast</h3><ul>
+        <li><b>The Docks</b>Container yard and the freighter MV Ashfell Trader</li>
+        <li><b>Salt Harbour</b>Fishing village, pier and cottages</li>
+        <li><b>Lighthouse Point</b>A landmark over open water</li>
+        <li><b>Ashfell</b>Volcanic island where The Fence does business</li>
+      </ul></div>
+      <div><h3>Desert</h3><ul>
+        <li><b>Dry Creek</b>Half-dead town at the end of the Desert Line</li>
+        <li><b>Silver Spur Casino</b>Slots, roulette and blackjack</li>
+        <li><b>Red Sands</b>Open desert and blowing dust</li>
+        <li><b>Halloran Scrap</b>A Highway 1 yard hiding a chop shop</li>
+      </ul></div>
+      <div><h3>High country</h3><ul>
+        <li><b>Mount Frost</b>Frost Lodge, the summit and falling snow</li>
+        <li><b>Frostback Peak</b>The other snow peak</li>
+        <li><b>Tallpine Sawmill</b>Logging camp, rich in salvage</li>
+        <li><b>Greenacre Farm</b>Barn, silos, windmill and a scarecrow</li>
+      </ul></div>
+      <div><h3>Off limits</h3><ul>
+        <li><b>Black Prison</b>Where the arrested end up</li>
+        <li><b>Science Facility</b>Two underground levels of cells and servers</li>
+        <li><b>The Fold</b>A walled farm commune with a chapel</li>
+        <li><b>Hidden Cove</b>Unmarked. Crates land here at night</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="blackwater" class="swamp">
+  <div class="in">
+    <div class="head">
+      <h2>Blackwater. Don’t go in.</h2>
+      <div class="rule"><i></i></div>
+      <p class="lede">Cypress, green fog and one boardwalk. Vampires hunt the swamp and grow stronger after dark. Eight cards are buried out here for anyone who digs at night and gets back.</p>
+      <ul class="warn"><li>KEEP OUT</li><li>TURN BACK</li><li>THEY WALK HERE</li><li>DO NOT ENTER AT NIGHT</li></ul>
+    </div>
+    <ol class="cards">
+      <li><img src="assets/card-0.jpg" alt="The Drowned Wood, common card" loading="lazy"><p>The trees remember the flood.</p></li>
+      <li><img src="assets/card-1.jpg" alt="The Lily Water, common card" loading="lazy"><p>Pretty. Do not wade.</p></li>
+      <li><img src="assets/card-2.jpg" alt="The Lost Sole, common card" loading="lazy"><p>It walked in. It did not walk out.</p></li>
+      <li><img src="assets/card-3.jpg" alt="The Boardwalk, uncommon card" loading="lazy"><p>It goes further at night.</p></li>
+      <li><img src="assets/card-4.jpg" alt="The Stilt Shack, uncommon card" loading="lazy"><p>Somebody still lights that window.</p></li>
+      <li><img src="assets/card-5.jpg" alt="The Pale One, rare card" loading="lazy"><p>Keep to the boardwalk.</p></li>
+      <li><img src="assets/card-6.jpg" alt="The Vampire Gate, rare card" loading="lazy"><p>It only opens inward.</p></li>
+      <li><img src="assets/card-7.jpg" alt="The Black Moon, legendary card" loading="lazy"><p>They come out at night.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="crime">
+  <div class="in">
+    <div class="head">
+      <h2>Under your own flag</h2>
+      <div class="rule"><i></i></div>
+      <p class="lede">There are no preset gangs. Players found the factions, set the ranks, pick from 48 insignia, raise a base and defend it. The Lock City Guards answer with tasers, cuffs and a transport van.</p>
+    </div>
+    <div class="badges" id="badges" aria-label="Faction insignia"></div>
+
+    <ul class="ops">
+      <li><h3>Turf</h3><p>Three territories open at a time. Hold the flag and collect on every payday.</p><span class="k mono">90 s to capture · open 25 min</span></li>
+      <li><h3>The government train</h3><p>A scrap shipment rolls every hour. Blow the vault, or escort it for the Guards.</p><span class="k mono">12,000 per bag · 1,500 escort</span></li>
+      <li><h3>Cartel drop</h3><p>A ping goes out to the whole map, and everyone races for the crates.</p><span class="k mono">Drugs · marked cash · materials</span></li>
+      <li><h3>Planned heists</h3><p>Plan from the board at home: a jewellery store hold-up or the Dry Creek casino cage.</p><span class="k mono">Crew of 1+ · crew of 2+</span></li>
+      <li><h3>The Undercroft</h3><p>No gun shops here. Find The Broker in the sewers under the church, or craft your own.</p><span class="k mono">“Don’t ask mine.”</span></li>
+      <li><h3>Bounties</h3><p>Every kill raises the price on your head.</p><span class="k mono">1,000 per kill · up to 25,000</span></li>
+    </ul>
+
+    <div class="body">
+      <h3>Every wound has a name</h3>
+      <div>
+        <p class="lede">Your body has 35 regions, and each wound bleeds on its own. Bandage it yourself, or get to a hospital for a splint or surgery. Go down and you have 90 seconds. Die and you drop your inventory and half your cash.</p>
+        <p class="wounds" style="margin-top:14px"><b>Chest</b> Sternum / Heart<br><b>Left Thigh</b> Quadriceps / Femur</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wallband" aria-hidden="true"><span>Raising Lock City &nbsp;◆&nbsp; Paving the roads &nbsp;◆&nbsp; Opening the shops &nbsp;◆&nbsp; Lighting the sky</span></div>
+
+<section id="play" class="off">
+  <div class="in">
+    <div class="head">
+      <h2>After the shift</h2>
+      <div class="rule"><i></i></div>
+    </div>
+    <div class="posters">
+      <img src="assets/poster_lockcityracewayraceday.jpg" alt="Race Day poster, Lock City Raceway" loading="lazy">
+      <img src="assets/poster_silverspurcasinonight.jpg" alt="Casino Night poster, Silver Spur, Dry Creek" loading="lazy">
+      <img src="assets/poster_liveattheredstar.jpg" alt="Live Tonight poster, The Red Star" loading="lazy">
+      <img src="assets/poster_frostlodgewinterfestival.jpg" alt="Winter Festival poster, Frost Lodge" loading="lazy">
+    </div>
+    <ul class="leis">
+      <li><h3>Street racing</h3><p>Host from your phone. Downtown Loop, The Zigzag or Uptown Sprint, with buy-ins of 300 to 800.</p></li>
+      <li><h3>Silver Spur</h3><p>Slots, roulette and blackjack, with bets from 10 to 5,000 Scrap.</p></li>
+      <li><h3>Pool and Joker</h3><p>Eight-ball with real table physics, and a trick-taking card game that fills empty seats.</p></li>
+      <li><h3>Pickup basketball</h3><p>One shared ball on the park court, and yes, you can steal it.</p></li>
+      <li><h3>BMX</h3><p>Grab a bike from the rack at the skatepark for flips, barspins and tailwhips.</p></li>
+      <li><h3>Graffiti</h3><p>Buy a can and paint freehand on a real canvas.</p></li>
+      <li><h3>Farm and hunt</h3><p>Grow tomato, corn, potato and pumpkin, cook them at home, or track deer and wolves.</p></li>
+      <li><h3>Radio</h3><p>Curfew FM, RXDXO FM and Frostback FM, from your car or home stereo.</p></li>
+      <li><h3>Your own place</h3><p>Start at the motel. Cottages run 12,000 Scrap, and houses start at 45,000.</p></li>
+    </ul>
+    <p class="tip">Thin pines and cliffs hide the best salvage, and the worst company.</p>
+
+    <div class="fleet scroll">
+      <table>
+        <caption>On sale through your laptop, SOLES OS</caption>
+        <thead><tr><th scope="col">Vehicle</th><th scope="col">Type</th><th scope="col" class="n">Scrap</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Mudcat Quad</th><td>All-wheel-drive ATV</td><td class="n">6,200</td></tr>
+          <tr><th scope="row">Bricco Hatch</th><td>Compact</td><td class="n">6,500</td></tr>
+          <tr><th scope="row">Rattler 650</th><td>Motorcycle</td><td class="n">7,800</td></tr>
+          <tr><th scope="row">Lock City Meridian</th><td>Sedan</td><td class="n">13,500</td></tr>
+          <tr><th scope="row">Courier Van</th><td>Van</td><td class="n">15,000</td></tr>
+          <tr><th scope="row">Ranchero Pickup</th><td>All-wheel-drive pickup</td><td class="n">16,000</td></tr>
+          <tr><th scope="row">Haulmaster Box Truck</th><td>Box truck</td><td class="n">22,000</td></tr>
+          <tr><th scope="row">Bramble 4x4</th><td>Family SUV</td><td class="n">32,000</td></tr>
+          <tr><th scope="row">Vandal GT</th><td>Muscle coupe</td><td class="n">38,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="enter">
+  <div class="in split">
+    <div>
+      <div class="head">
+        <h2>Getting in</h2>
+        <div class="rule"><i></i></div>
+      </div>
+      <p class="lede">Continue with Discord, pick a Firstname_Lastname and wake up in the city with 2,500 Scrap in the bank. The first player in hosts the session. When the host leaves, anyone can reopen the same saved world.</p>
+      <dl class="req">
+        <div><dt>Platform</dt><dd>Windows, 64-bit</dd></div>
+        <div><dt>Sign-in</dt><dd>Discord account</dd></div>
+        <div><dt>Players</dt><dd>Up to 12 per session</dd></div>
+        <div><dt>Voice</dt><dd>Push to talk, 22 m range</dd></div>
+      </dl>
+    </div>
+    <div>
+      <p class="mono" style="color:var(--mute);margin-bottom:16px;text-transform:uppercase;letter-spacing:.1em">Keyboard and mouse</p>
+      <div class="keys">
+        <div><kbd>WASD</kbd>Move</div><div><kbd>Shift</kbd>Sprint</div><div><kbd>Space</kbd>Jump</div>
+        <div><kbd>C</kbd>Crouch</div><div><kbd>F</kbd>Interact</div><div><kbd>R</kbd>Reload</div>
+        <div><kbd>1–6</kbd>Hotbar</div><div><kbd>Tab</kbd>Inventory</div><div><kbd>M</kbd>Phone</div>
+        <div><kbd>B</kbd>Factions</div><div><kbd>I</kbd>Wounds</div><div><kbd>U</kbd>Emotes</div>
+        <div><kbd>T</kbd>Chat</div><div><kbd>Y</kbd>Faction chat</div><div><kbd>V</kbd>Voice</div>
+        <div><kbd>H</kbd>Headlights</div><div><kbd>L</kbd>Lock</div><div><kbd>X</kbd>Interact wheel</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="assets/logo.png" alt="Soles" width="640" height="169" loading="lazy">
+    <span>Tutorial complete. The city is yours. Stay within the walls.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var wall = document.getElementById('badges');
+  for (var i = 0; i < 48; i++) {
+    var im = new Image();
+    im.src = 'assets/badge-' + String(i).padStart(2, '0') + '.png';
+    im.alt = ''; im.loading = 'lazy'; im.width = 160; im.height = 160;
+    wall.appendChild(im);
+  }
+
+  var LAT = 44.31, LON = -69.78, R = Math.PI / 180;
+  function sunAltitude(now) {
+    var d = now / 86400000 + 2440587.5 - 2451545;
+    var g = (357.529 + 0.98560028 * d) * R;
+    var q = 280.459 + 0.98564736 * d;
+    var l = (q + 1.915 * Math.sin(g) + 0.02 * Math.sin(2 * g)) * R;
+    var e = (23.439 - 0.00000036 * d) * R;
+    var ra = Math.atan2(Math.cos(e) * Math.sin(l), Math.cos(l));
+    var dec = Math.asin(Math.sin(e) * Math.sin(l));
+    var ha = (280.46061837 + 360.98564736629 * d + LON) * R - ra;
+    return Math.asin(Math.sin(LAT * R) * Math.sin(dec) + Math.cos(LAT * R) * Math.cos(dec) * Math.cos(ha)) / R;
+  }
+  function moon(now) {
+    var p = (((now - Date.UTC(2000, 0, 6, 18, 14)) / 86400000) % 29.530588 + 29.530588) % 29.530588 / 29.530588;
+    var names = ['new moon', 'waxing crescent', 'first quarter', 'waxing gibbous', 'full moon', 'waning gibbous', 'last quarter', 'waning crescent'];
+    return names[Math.round(p * 8) % 8];
+  }
+
+  var day = document.getElementById('day'), night = document.getElementById('night');
+  var bd = document.getElementById('btn-day'), bn = document.getElementById('btn-night');
+  var chosen = false;
+  function show(isNight) {
+    day.classList.toggle('off', isNight); night.classList.toggle('off', !isNight);
+    bd.setAttribute('aria-pressed', String(!isNight)); bn.setAttribute('aria-pressed', String(isNight));
+  }
+  bd.addEventListener('click', function () { chosen = true; show(false); });
+  bn.addEventListener('click', function () { chosen = true; show(true); });
+
+  var fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false });
+  function tick() {
+    var now = Date.now(), up = sunAltitude(now) > -0.8;
+    document.getElementById('time').textContent = fmt.format(now).replace(/^24/, '00');
+    document.getElementById('state').textContent = (up ? 'Sun is up' : 'Sun is down') + ' in Lock City · ' + moon(now);
+    if (!chosen) show(!up);
+  }
+  tick(); setInterval(tick, 20000);
+})();
+</script>
+</body>
+</html>
