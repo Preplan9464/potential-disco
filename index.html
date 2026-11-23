@@ -19,7 +19,7 @@
   --wall:#17181b; --wall-2:#202226; --line:#383a40;
   --bone:#f1eee6; --mute:#b1aea5;
   --crimson:#b3121f; --crimson-text:#ef5360;
-  --cream:#fdf2b0; --hazard:#f0c020;
+  --accent:#ff8c5a; --hazard:#f0c020;
   --swamp:#07110f; --swamp-2:#0d1c19; --mint:#2bffc6; --mint-dim:#9fd9c8;
   --display:"Anton","Impact","Arial Narrow",sans-serif;
   --sign:"Gelasio",Georgia,"Times New Roman",serif;
@@ -33,7 +33,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--wall);color:var(--bone);font:400 17px/1.6 var(--body);overflow-x:hidden}
 img{display:block;max-width:100%}
 a{color:inherit}
-a:focus-visible,button:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 h1,h2,h3,p,ul,ol,figure,dl,dd{margin:0;padding:0}
 ul,ol{list-style:none}
 .in{max-width:1240px;margin-inline:auto;padding-left:var(--gl);padding-right:var(--gr)}
@@ -49,12 +49,12 @@ section{padding-block:clamp(64px,9vw,120px)}
 .top .in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:20px}
 .top img{width:132px;height:auto}
 .top ul{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 22px;font:500 .78rem var(--mono);text-transform:uppercase;letter-spacing:.08em}
-.top a{text-decoration:none}.top a:hover{color:var(--cream)}
+.top a{text-decoration:none}.top a:hover{color:var(--accent)}
 .pitch{position:absolute;z-index:2;inset:auto 0 0}
 .pitch .in{padding-bottom:clamp(24px,4vw,52px)}
 h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:uppercase;letter-spacing:.005em;text-wrap:balance;animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
 .pitch p{max-width:58ch;margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.25rem)}
-.spec{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:18px;color:var(--cream)}
+.spec{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:18px;color:var(--accent)}
 @keyframes rise{from{transform:translateY(22px)}to{transform:none}}
 
 /* concrete wall band */
@@ -91,7 +91,7 @@ h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:upperc
 .work{background:var(--wall-2)}
 .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,84px);align-items:start}
 .split>*{min-width:0}
-.assign{margin-top:24px;padding:16px 18px;border:1px solid var(--line);font:400 .86rem/1.55 var(--mono);color:var(--cream)}
+.assign{margin-top:24px;padding:16px 18px;border:1px solid var(--line);font:400 .86rem/1.55 var(--mono);color:var(--accent)}
 .scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.97rem}
 caption{text-align:left;padding-bottom:10px;font:500 .76rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
@@ -143,8 +143,14 @@ table+table{margin-top:38px}
 .leis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 36px}
 .leis h3{font:600 1.08rem var(--body)}
 .leis p{color:var(--mute);font-size:.96rem;margin-top:3px}
-.tip{margin-top:52px;font:400 clamp(1.4rem,3vw,2.2rem)/1.15 var(--display);letter-spacing:.03em;text-transform:uppercase;color:var(--cream);text-wrap:balance}
+.tip{margin-top:52px;font:400 clamp(1.4rem,3vw,2.2rem)/1.15 var(--display);letter-spacing:.03em;text-transform:uppercase;color:var(--accent);text-wrap:balance}
 .fleet{margin-top:64px}
+.get{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;margin-top:56px;padding:28px clamp(20px,4vw,40px);border:3px solid var(--accent);outline:1px solid var(--accent);outline-offset:4px}
+.get h3{font:400 clamp(1.9rem,4vw,2.8rem)/1.05 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.get p{margin-top:6px;color:var(--mute)}
+.dl{display:inline-flex;align-items:center;gap:12px;padding:15px 28px;background:var(--accent);color:#1a0d06;text-decoration:none;font:400 1.3rem/1 var(--display);letter-spacing:.06em;text-transform:uppercase;transition:transform .15s,filter .15s}
+.dl:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.dl svg{width:20px;height:20px}
 
 /* entry */
 .keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px 22px}
@@ -193,6 +199,7 @@ footer img{width:96px;height:auto}
         <li><a href="#blackwater">Blackwater</a></li>
         <li><a href="#crime">Crime</a></li>
         <li><a href="#play">Play</a></li>
+        <li><a href="#download">Download</a></li>
       </ul>
     </div>
   </nav>
@@ -402,6 +409,17 @@ footer img{width:96px;height:auto}
       <li><h3>Your own place</h3><p>Start at the motel. Cottages run 12,000 Scrap, and houses start at 45,000.</p></li>
     </ul>
     <p class="tip">Thin pines and cliffs hide the best salvage, and the worst company.</p>
+
+    <div class="get" id="download">
+      <div>
+        <h3>Download Soles</h3>
+        <p>Windows 64-bit · sign in with Discord · up to 12 players per session</p>
+      </div>
+      <a class="dl" href="https://github.com/Preplan9464/potential-disco/releases/latest" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg>
+        Download for Windows
+      </a>
+    </div>
 
     <div class="fleet scroll">
       <table>
