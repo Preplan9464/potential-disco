@@ -18,7 +18,7 @@
   color-scheme:dark;
   --wall:#17181b; --wall-2:#202226; --line:#383a40;
   --bone:#f1eee6; --mute:#b1aea5;
-  --crimson:#b3121f; --crimson-text:#ef5360;
+ 
   --accent:#ff8c5a; --hazard:#f0c020;
   --swamp:#07110f; --swamp-2:#0d1c19; --mint:#2bffc6; --mint-dim:#9fd9c8;
   --display:"Anton","Impact","Arial Narrow",sans-serif;
@@ -64,12 +64,12 @@ h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:upperc
 /* sign-style section head */
 .head{display:grid;gap:18px;margin-bottom:clamp(32px,5vw,56px)}
 .head h2{font:700 clamp(2rem,5vw,3.7rem)/1.08 var(--sign);text-transform:uppercase;letter-spacing:.06em;text-wrap:balance}
-.rule{display:flex;align-items:center;gap:10px;width:min(320px,70%);color:var(--crimson)}
+.rule{display:flex;align-items:center;gap:10px;width:min(320px,70%);color:var(--accent)}
 .rule::before,.rule::after{content:"";height:3px;flex:1;background:currentColor}
 .rule i{width:11px;height:11px;background:currentColor;transform:rotate(45deg)}
 
 /* city */
-.sky{position:relative;border:3px solid var(--crimson);outline:1px solid var(--crimson);outline-offset:4px;margin:6px 6px 0;background:#000}
+.sky{position:relative;border:3px solid var(--accent);outline:1px solid var(--accent);outline-offset:4px;margin:6px 6px 0;background:#000}
 .sky figure{position:relative;aspect-ratio:7/3}
 .sky img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s}
 .sky img.off{opacity:0}
@@ -79,7 +79,7 @@ h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:upperc
 .clock span{color:var(--mute)}
 .toggle{display:flex;border:1px solid var(--line)}
 .toggle button{appearance:none;border:0;background:none;color:var(--mute);padding:9px 20px;font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
-.toggle button[aria-pressed=true]{background:var(--crimson);color:#fff}
+.toggle button[aria-pressed=true]{background:var(--accent);color:#1a0d06}
 .districts{display:flex;flex-wrap:wrap;gap:8px;margin-block:44px 56px}
 .districts li{padding:5px 12px;background:#1d5a3c;border:1px solid #6da98b;border-radius:3px;color:#fff;font:600 .86rem var(--body)}
 .signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 28px}
@@ -129,12 +129,12 @@ table+table{margin-top:38px}
 .ops li{padding-block:18px;border-top:1px solid var(--line)}
 .ops h3{font:600 1.08rem var(--body)}
 .ops p{margin-top:4px;color:var(--mute);font-size:.96rem}
-.ops .k{display:block;margin-top:8px;color:var(--crimson-text)}
-.body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center;margin-top:64px;padding-top:42px;border-top:3px solid var(--crimson)}
+.ops .k{display:block;margin-top:8px;color:var(--accent)}
+.body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center;margin-top:64px;padding-top:42px;border-top:3px solid var(--accent)}
 .body>*{min-width:0}
 .body h3{font:400 clamp(2rem,4vw,3rem)/1.08 var(--display);text-transform:uppercase;letter-spacing:.02em}
 .wounds{font:400 .83rem/1.9 var(--mono);color:var(--mute)}
-.wounds b{color:var(--crimson-text);font-weight:500}
+.wounds b{color:var(--accent);font-weight:500}
 
 /* off hours */
 .off{background:var(--wall-2)}
