@@ -70,7 +70,7 @@ h1{font:400 clamp(3.4rem,10.4vw,9.4rem)/.98 var(--display);text-transform:upperc
 
 /* city */
 .sky{position:relative;border:3px solid var(--accent);outline:1px solid var(--accent);outline-offset:4px;margin:6px 6px 0;background:#000}
-.sky figure{position:relative;aspect-ratio:7/3}
+.sky figure{position:relative;aspect-ratio:2/1}
 .sky img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s}
 .sky img.off{opacity:0}
 .skybar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;margin-top:24px}
@@ -162,6 +162,9 @@ kbd{min-width:32px;padding:2px 7px;border:1px solid #5a5c63;border-bottom-width:
 footer{padding-block:38px calc(38px + env(safe-area-inset-bottom,0px));background:#0d0d0f;color:var(--mute);font-size:.88rem}
 footer .in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 footer img{width:96px;height:auto}
+.discord{display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border:2px solid var(--accent);color:var(--accent);text-decoration:none;font:400 1.05rem/1 var(--display);letter-spacing:.06em;text-transform:uppercase;transition:background .15s,color .15s}
+.discord:hover{background:var(--accent);color:#1a0d06}
+.discord svg{width:22px;height:22px}
 
 @media (max-width:980px){
   .signs,.ops,.leis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -173,7 +176,7 @@ footer img{width:96px;height:auto}
   .top ul{display:none}
   .hero>img{height:520px;object-position:58% 0}
   .pitch{position:relative;margin-top:-120px}
-  .sky figure{aspect-ratio:3/2}
+  .sky figure{aspect-ratio:2/1}
   .signs,.ops,.leis,.lands{grid-template-columns:minmax(0,1fr)}
   .cards{gap:14px}
   .badges{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -228,8 +231,8 @@ footer img{width:96px;height:auto}
 
     <div class="sky">
       <figure>
-        <img id="day" src="assets/city-day.jpg" alt="Lock City by day: a wide street, palm trees, brick blocks and the twin spires of the Chancery" width="1260" height="540">
-        <img id="night" class="off" src="assets/city-night.jpg" alt="Lock City at night: lit apartment windows under a sky full of stars" width="1260" height="540">
+        <img id="day" src="assets/city-day.jpg" alt="The padlock fountain in a Lock City square on a foggy day, ringed by benches, chains and palm trees" width="1280" height="640">
+        <img id="night" class="off" src="assets/city-night.jpg" alt="The padlock fountain at night, its shackle glowing green over dark water" width="1280" height="640">
       </figure>
     </div>
     <div class="skybar">
@@ -245,8 +248,8 @@ footer img{width:96px;height:auto}
     </ul>
 
     <ul class="signs">
-      <li><img src="assets/sign_thechancery.jpg" alt="The Chancery sign" loading="lazy"><h3>The Chancery</h3><p>A gothic cathedral and the seat of government. Its bell tolls twelve at noon on Sundays.</p></li>
-      <li><img src="assets/sign_theredstar.jpg" alt="The Red Star sign" loading="lazy"><h3>The Red Star</h3><p>The only bar in the city, with a jukebox, a pool table and a game of Joker.</p></li>
+      <li><img src="assets/sign_thechancery.jpg" alt="The Chancery sign" loading="lazy"><h3>The Chancery</h3><p>A gothic cathedral and the seat of government. Its bell tolls every hour, day and night.</p></li>
+      <li><img src="assets/sign_theredstar.jpg" alt="The Red Star sign" loading="lazy"><h3>The Red Star</h3><p>The city's bar: a long counter, booths, pool and a Joker table anyone can join.</p></li>
       <li><img src="assets/sunsetmotel.jpg" alt="Sunset Motel sign" loading="lazy"><h3>Sunset Motel</h3><p>Your free first room. Your stash lives in the cupboard.</p></li>
       <li><img src="assets/guardstation.jpg" alt="City Guard Station sign" loading="lazy"><h3>Guard Station</h3><p>Home of the Lock City Guards, who book arrests here before the van to Black Prison.</p></li>
       <li><img src="assets/trainstation.jpg" alt="Lock City Central Rail Station sign" loading="lazy"><h3>Lock City Central</h3><p>Board the Desert Line here for the run out to Dry Creek.</p></li>
@@ -264,7 +267,7 @@ footer img{width:96px;height:auto}
         <h2>Pay is in Scrap</h2>
         <div class="rule"><i></i></div>
       </div>
-      <p class="lede">You do not pick a career in Lock City. Go to a jobs board or open your phone, and the city government hands you one. Skill levels add 15% to your pay each.</p>
+      <p class="lede">You do not pick a career in Lock City. Go to a jobs board or open your phone, and the city government hands you one. Skill levels add 15% to your pay each, and every hour on the job earns a paycheck of 500 Scrap, plus 250 for each level you reach.</p>
       <p class="assign">“The Government of Lock has assigned you to Garbage collection.”</p>
     </div>
     <div>
@@ -276,6 +279,8 @@ footer img{width:96px;height:auto}
             <tr><th scope="row">Garbage</th><td>Six bin stops in the City Sanitation Truck, then back to the depot</td><td class="n">420 / run</td></tr>
             <tr><th scope="row">Deliveries</th><td>City Delivery Truck, paid by the distance</td><td class="n">250 + 0.3 / m</td></tr>
             <tr><th scope="row">Fishing</th><td>Mackerel, cod, sea bass and the occasional old boot</td><td class="n">18 + 22 / kg</td></tr>
+            <tr><th scope="row">Security Guard</th><td>Watch the door at The Red Star or the Velvet in Dry Creek</td><td class="n">Hourly</td></tr>
+            <tr><th scope="row">City Clerk</th><td>Process records at a computer in the City Clerk office</td><td class="n">Hourly</td></tr>
           </tbody>
         </table>
       </div>
@@ -360,7 +365,7 @@ footer img{width:96px;height:auto}
     <div class="head">
       <h2>Under your own flag</h2>
       <div class="rule"><i></i></div>
-      <p class="lede">There are no preset gangs. Players found the factions, set the ranks, pick from 48 insignia, raise a base and defend it. The Lock City Guards answer with tasers, cuffs and a transport van.</p>
+      <p class="lede">There are no preset gangs. Players found the factions, set the ranks, pick from 48 insignia, raise a base and defend it. The Lock City Guards answer with tasers, cuffs and a transport van, and anyone unaffiliated can apply to join them at the Guard Station.</p>
     </div>
     <div class="badges" id="badges" aria-label="Faction insignia"></div>
 
@@ -368,7 +373,7 @@ footer img{width:96px;height:auto}
       <li><h3>Turf</h3><p>Three territories open at a time. Hold the flag and collect on every payday.</p><span class="k mono">90 s to capture · open 25 min</span></li>
       <li><h3>The government train</h3><p>A scrap shipment rolls every hour. Blow the vault, or escort it for the Guards.</p><span class="k mono">12,000 per bag · 1,500 escort</span></li>
       <li><h3>Cartel drop</h3><p>A ping goes out to the whole map, and everyone races for the crates.</p><span class="k mono">Drugs · marked cash · materials</span></li>
-      <li><h3>Planned heists</h3><p>Plan from the board at home: a jewellery store hold-up or the Dry Creek casino cage.</p><span class="k mono">Crew of 1+ · crew of 2+</span></li>
+      <li><h3>Hold-ups</h3><p>Rob a shop, crack a dock container, or stick up another player in the street.</p><span class="k mono">Shops · containers · players</span></li>
       <li><h3>The Undercroft</h3><p>No gun shops here. Find The Broker in the sewers under the church, or craft your own.</p><span class="k mono">“Don’t ask mine.”</span></li>
       <li><h3>Bounties</h3><p>Every kill raises the price on your head.</p><span class="k mono">1,000 per kill · up to 25,000</span></li>
     </ul>
@@ -398,17 +403,17 @@ footer img{width:96px;height:auto}
       <img src="assets/poster_frostlodgewinterfestival.jpg" alt="Winter Festival poster, Frost Lodge" loading="lazy">
     </div>
     <ul class="leis">
-      <li><h3>Street racing</h3><p>Host from your phone. Downtown Loop, The Zigzag or Uptown Sprint, with buy-ins of 300 to 800.</p></li>
+      <li><h3>Street racing</h3><p>Host from your phone on five routes, from the Downtown Loop to the Wall Ring, with buy-ins of 300 to 900. Time trials too.</p></li>
       <li><h3>Silver Spur</h3><p>Slots, roulette and blackjack, with bets from 10 to 5,000 Scrap.</p></li>
       <li><h3>Pool and Joker</h3><p>Eight-ball with real table physics, and a trick-taking card game that fills empty seats.</p></li>
-      <li><h3>Pickup basketball</h3><p>One shared ball on the park court, and yes, you can steal it.</p></li>
-      <li><h3>BMX</h3><p>Grab a bike from the rack at the skatepark for flips, barspins and tailwhips.</p></li>
+      <li><h3>Dry Creek Fight Club</h3><p>A bare-knuckle ring out in the desert town.</p></li>
+      <li><h3>Skatepark</h3><p>Kick the footballs around the skatepark, or try your arm at bottle tossing.</p></li>
       <li><h3>Graffiti</h3><p>Buy a can and paint freehand on a real canvas.</p></li>
       <li><h3>Farm and hunt</h3><p>Grow tomato, corn, potato and pumpkin, cook them at home, or track deer and wolves.</p></li>
-      <li><h3>Radio</h3><p>Curfew FM, RXDXO FM and Frostback FM, from your car or home stereo.</p></li>
+      <li><h3>Radio</h3><p>Locked FM, Frostback FM and Swampwater FM, from your car or home stereo.</p></li>
       <li><h3>Your own place</h3><p>Start at the motel. Cottages run 12,000 Scrap, and houses start at 45,000.</p></li>
     </ul>
-    <p class="tip">Thin pines and cliffs hide the best salvage, and the worst company.</p>
+    <p class="tip">Search the rubble in the ruined blocks for parts and materials.</p>
 
     <div class="fleet scroll">
       <table>
@@ -475,6 +480,10 @@ footer img{width:96px;height:auto}
 <footer>
   <div class="in">
     <img src="assets/logo.png" alt="Soles" width="640" height="169" loading="lazy">
+    <a class="discord" href="https://discord.gg/JWujvvw4yx" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.5 19.5 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1a19.8 19.8 0 0 0 6 3l1.3-2.1-2-1 .5-.4a14 14 0 0 0 12.2 0l.5.4-2 1 1.3 2.1a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.6-13.7ZM8 15.4c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.6 8 10.6s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
+      Join the Discord
+    </a>
     <span>Tutorial complete. The city is yours. Stay within the walls.</span>
   </div>
 </footer>
