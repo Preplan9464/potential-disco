@@ -43,7 +43,7 @@ section{padding-block:clamp(64px,9vw,120px)}
 
 /* hero */
 .hero{position:relative;background:#0c0c0e;isolation:isolate}
-.hero>img{width:100%;height:clamp(560px,56vw,860px);object-fit:cover;object-position:60% 20%}
+.hero>img{width:100%;height:clamp(560px,56vw,860px);object-fit:cover;object-position:50% 45%}
 .hero::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(12,12,14,.72) 0,rgba(12,12,14,0) 20%,rgba(12,12,14,0) 48%,rgba(12,12,14,.94) 88%,#17181b 100%)}
 .top{position:absolute;z-index:2;inset:0 0 auto}
 .top .in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:20px}
@@ -175,7 +175,7 @@ footer img{width:96px;height:auto}
 }
 @media (max-width:620px){
   .top ul{display:none}
-  .hero>img{height:520px;object-position:58% 0}
+  .hero>img{height:520px;object-position:55% 50%}
   .pitch{position:relative;margin-top:-120px}
   .sky figure{aspect-ratio:2/1}
   .signs,.ops,.leis,.lands{grid-template-columns:minmax(0,1fr)}
@@ -192,7 +192,7 @@ footer img{width:96px;height:auto}
 <body>
 
 <header class="hero">
-  <img src="assets/poster.jpg" alt="A Lock City Guard in a crimson cap, pistol in hand, pointing at the viewer in front of a concrete wall under a red sky" width="1672" height="941">
+  <img src="assets/header.webp" alt="Lock City at night under a red sky: the Chancery spires in front, lit apartment blocks, and the padlock fountain glowing in the square below" width="1442" height="673">
   <nav class="top" aria-label="Sections">
     <div class="in">
       <img src="assets/logo.png" alt="Soles" width="640" height="169">
@@ -214,7 +214,6 @@ footer img{width:96px;height:auto}
       <ul class="spec mono">
         <li>12 players per session</li>
         <li>One persistent world</li>
-        <li>Proximity voice</li>
         <li>Windows</li>
       </ul>
     </div>
@@ -441,7 +440,6 @@ footer img{width:96px;height:auto}
         <div><dt>Platform</dt><dd>Windows, 64-bit</dd></div>
         <div><dt>Sign-in</dt><dd>Discord account</dd></div>
         <div><dt>Players</dt><dd>Up to 12 per session</dd></div>
-        <div><dt>Voice</dt><dd>Push to talk, 22 m range</dd></div>
       </dl>
     </div>
     <div>
@@ -451,7 +449,7 @@ footer img{width:96px;height:auto}
         <div><kbd>C</kbd>Crouch</div><div><kbd>F</kbd>Interact</div><div><kbd>R</kbd>Reload</div>
         <div><kbd>1–6</kbd>Hotbar</div><div><kbd>Tab</kbd>Inventory</div><div><kbd>M</kbd>Phone</div>
         <div><kbd>B</kbd>Factions</div><div><kbd>I</kbd>Wounds</div><div><kbd>U</kbd>Emotes</div>
-        <div><kbd>T</kbd>Chat</div><div><kbd>Y</kbd>Faction chat</div><div><kbd>V</kbd>Voice</div>
+        <div><kbd>T</kbd>Chat</div><div><kbd>Y</kbd>Faction chat</div>
         <div><kbd>H</kbd>Headlights</div><div><kbd>L</kbd>Lock</div><div><kbd>X</kbd>Interact wheel</div>
       </div>
     </div>
